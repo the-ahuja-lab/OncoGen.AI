@@ -164,7 +164,7 @@ Includes four sub-tabs:
 
 ---
 
-## 📁 Directory Structure (Inside Docker)
+## 🗃️ Directory Structure (Inside Docker)
 
 | Container Path         | Description                          |
 |------------------------|--------------------------------------|
@@ -204,17 +204,13 @@ Includes four sub-tabs:
 
 ## 📌 Acknowledgments
 
-Developed by **Ahuja Lab**, IIIT-Delhi & **Rajiv Gandhi Cancer Institute and Research Centre**.
+Special thanks to the developers of: VEP, ANNOVAR, GATK, CNVKit, InterVar, igvShiny, Gemini LLM, VarSome and other open-source libraries used in this project.
 
-Special thanks to the developers of:
-- VEP
-- ANNOVAR
-- GATK
-- CNVKit
-- InterVar
-- igvShiny
-- Gemini LLM
-- VarSome
+---
+
+## 👥 Contributors
+
+Developed by **Ahuja Lab**, IIIT-Delhi & **Rajiv Gandhi Cancer Institute and Research Centre**.
 
 ---
 
