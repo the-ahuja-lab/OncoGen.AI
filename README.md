@@ -1,4 +1,3 @@
-
 # OncoGen.AI: An Integrated Knowledge-Graph-Driven Platform for Automated Genomic Analysis and Clinical Reporting in Precision Oncology
 
 **OncoGen.AI** is an enterprise-grade, end-to-end clinical genomics platform for the analysis and interpretation of cancer exome data from Illumina and Ion Torrent sequencing. Designed for use in clinical and translational oncology, it integrates robust bioinformatics pipelines, a curated clinical Knowledge Graph, and generative AI-based reporting to bridge the data-to-decision gap in precision medicine.
@@ -19,7 +18,7 @@
 
 ---
 
-## 🚀 Key Features
+## ✅ Key Features
 
 - Cross-platform input: FASTQ (Illumina) and BAM (Ion Torrent)
 - GATK & TVC variant calling with quality filtering
@@ -77,7 +76,7 @@ After execution, access the app at:
 
 ---
 
-## 🧪 GUI Modules & Usage Flow
+## 📊 GUI Modules & Usage Flow
 
 ### 1️⃣ New Job Submission
 - Navigate to **New Job** tab.
