@@ -50,13 +50,16 @@ Download Docker Desktop: [https://www.docker.com/products/docker-desktop](https:
 ### Access the Docker Image
 
 ```bash
+#get the docker zipped file
 wget -O oncogen-ai.tar.gz "http://oncogenai.ahujalab.iiitd.edu.in:8080/oncogen-ai.tar.gz"
 # or
 curl -L -o oncogen-ai.tar.gz "http://oncogenai.ahujalab.iiitd.edu.in:8080/oncogen-ai.tar.gz"
-
+#load the docker
 gunzip -c oncogen-ai.tar.gz | docker load
 # or
 docker load -i oncogen-ai.tar.gz
+#check docker installation
+docker image ls
 ```
 
 ---
