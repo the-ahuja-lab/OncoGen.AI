@@ -51,13 +51,13 @@ Download Docker Desktop: [https://www.docker.com/products/docker-desktop](https:
 
 ```bash
 #get the docker zipped file
-wget -O oncogen-ai.tar.gz "http://oncogenai.ahujalab.iiitd.edu.in:8080/oncogen-ai.tar.gz"
+wget -O oncogenai.tar.gz "http://oncogenai.ahujalab.iiitd.edu.in:8080/oncogenai.tar.gz"
 # or
-curl -L -o oncogen-ai.tar.gz "http://oncogenai.ahujalab.iiitd.edu.in:8080/oncogen-ai.tar.gz"
+curl -L -o oncogenai.tar.gz "http://oncogenai.ahujalab.iiitd.edu.in:8080/oncogenai.tar.gz"
 #load the docker
-gunzip -c oncogen-ai.tar.gz | docker load
+gunzip -c oncogenai.tar.gz | docker load
 # or
-docker load -i oncogen-ai.tar.gz
+docker load -i oncogenai.tar.gz
 #check docker installation
 docker image ls
 ```
@@ -69,14 +69,18 @@ docker image ls
 To launch the OncoGen.ai web application with your input and output directories mounted:
 
 ```bash
-docker run --rm -p 1235:1235 \
-  -v /path/to/input-directory:/app-input \
+docker run --rm -it \
+  --privileged \
+  -v /path/to/input-files-directory:/app-input \
   -v /path/to/output-directory:/OncoGenAI/results \
-  ahujalab/oncogenai
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -p 1235:1235 \
+  ahujalab/oncogenai:latest \
+  R -e "shiny::runApp('/')"
 ```
 
-- Replace `/path/to/input-directory` with the folder containing FASTQ/BAM files
-- Replace `/path/to/output-directory` with the folder to store results
+- Replace `/path/to/input-files-directory` with the folder containing input FASTQ/BAM files
+- Replace `/path/to/output-directory` with the folder to store the results
 - The `--rm` flag ensures that the container is cleaned up after stopping
 
 After execution, access the app at:  
@@ -107,6 +111,8 @@ After execution, access the app at:
 
 ### 3️⃣ Variant Filtration
 - Choose **3-mode** or **Manual** filtering.
+- It is to be done after illumina-based analysis
+- Go to this tab when the running job status of a sample completes at 70%
 - Adjust thresholds for:
   - QD (Quality by Depth)
   - MQ (Mapping Quality)
@@ -142,23 +148,27 @@ Includes four sub-tabs:
 - Launches **IGV view** using `igvShiny` for that variant.
 
 ### 7️⃣ KG Imputation
-- Save filtered variants in **Tabular View**.
+- Click on the variant row of tabular view to select that row.
+- Save the selected variants row in **Tabular View**.
+- Click on **Query KG** button, the page will automatically re-direct to **KG Imputation** Tab.
 - Go to **KG Imputation** tab.
-- Query selected variants to get:
+- The selected selected variant's row will show the KG results:
   - Associated drugs
   - Disease links
   - Evidence levels from COSMIC, ClinVar, OncoKB, and CKG.
 
 ### 8️⃣ Report Generation
+- Select and save a variant row in the KG table.
+- After saving the KG row click on **Generate report** button.
+- The page will automatically re-direct to **Report Generation** Tab.
 - Go to **Report Generation**.
-- Select **Job ID** and **Patient ID**.
 - Auto-generated query loads from saved KG variant.
 - Click to **generate report** using Gemini LLM.
 - Output shown in dialog and downloadable.
 
 ---
 
-## 📁 Output Files (Host System)
+## 📁 Output Files ( Will be downloaded in host system)
 
 | File Name                 | Description                                 |
 |--------------------------|---------------------------------------------|
@@ -167,7 +177,7 @@ Includes four sub-tabs:
 | `OncogenID_merged.hg19/hg38_multianno.txt.intervar`     | InterVar-annotated variants                                |
 | `OncogenIDcall-cns.csv`     | CNV bins                                    |
 | `ClassifyCNV/Scoresheet.txt` | CNV clinical classification                      |
-| `OncogenID_somatic_TMB.csv`         | Tumor Mutational Burden table               |
+| `OncogenID_somatic_TMB.csv`         | Tumor Mutational Burden table for somatic samples only               |
 | `OncogenID_kg_results.csv`          | Knowledge Graph associations                |
 
 ---
@@ -182,7 +192,7 @@ Includes four sub-tabs:
 | `/exome`, `/panel_file`, `/PON` | Reference & panel files   |
 | `/TmbR_scripts`        | Scripts for TMB scoring              |
 | `/InterVar-master`, `/annovar` | Clinical interpretation |
-| `/vep-hg19`, `/vep-hg38` | Transcript-based annotation |
+| `/vep-hg19`, `/vep-hg38` | Transcript-based annotation (VEP) |
 
 ---
 
@@ -205,7 +215,7 @@ Includes four sub-tabs:
 | VariantAnnotation  | v1.50.0         | Variant data handling                  |
 | GenomicAlignments  | v1.40.0         | Read alignment visualization           |
 | Shiny              | v1.9.1          | Web GUI                                |
-| Gemini API         | gemini-1.5-flash| Generative AI report writing           |
+| Gemini API         | gemini-2.5-flash| Generative AI report writing           |
 | VarSome            | v12.6.1         | External clinical variant annotation   |
 
 ---
